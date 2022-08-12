@@ -9,7 +9,7 @@ function mostrarProductos() {
   let producto;
   do {
     producto = prompt(" ¿Que productos está buscando? \n1)Procesador INTEL \n2)Procesador AMD \n3)PC GAMER armada");
-  } while (producto != 1 && producto != 2 && producto != 3);
+  } while (producto != 1 && producto != 2 && producto != 3 && producto != 4 && producto != 5 && producto != 6);
   switch (producto) {
     case "1":
       return "Procesador INTEL";
