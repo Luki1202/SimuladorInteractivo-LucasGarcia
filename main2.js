@@ -7,6 +7,8 @@ const botonVaciar = document.getElementById('vaciar-carrito')
 const contadorCarrito = document.getElementById('contadorCarrito')
 
 const precioTotal = document.getElementById('precioTotal')
+
+
 let carrito = []
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,8 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 botonVaciar.addEventListener('click', () => {
   carrito.length = 0
+  sa()
   actualizarCarrito()
 })
+
 
 stockProductos.forEach((producto) => {
   const div = document.createElement('div')
@@ -37,6 +41,7 @@ stockProductos.forEach((producto) => {
 
   boton.addEventListener('click', () => {
     agregarAlCarrito(producto.id)
+    
   })
 })
 
@@ -52,7 +57,9 @@ if (exite) {
   const item = stockProductos.find((prod) => prod.id === prodId)
   carrito.push(item)
   console.log(carrito)
+
 }
+  saAgregar()
   actualizarCarrito()
 }
 
@@ -73,7 +80,7 @@ const actualizarCarrito = () => {
     <p>${prod.nombre}</p>
     <p>Precio:$ ${prod.precio}</p>
     <p>Cantidad: <span id="cantidad">${prod.cantidad}</span></p>
-    <button oneclick = "eliminarDelCarrito(${prod.id})" class="boton-eliminar"><i class="fas fa-trash-alt"></i></button>
+    <button onclick = "eliminarDelCarrito(${prod.id})" class="boton-eliminar"><i class="fas fa-trash-alt"></i></button>
     `
     contenedorCarrito.appendChild(div)
     localStorage.setItem('carrito', JSON.stringify(carrito))
@@ -81,4 +88,35 @@ const actualizarCarrito = () => {
 
   contadorCarrito.innerText = carrito.length
   precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.precio, 0)
+}
+
+const sa = () => {
+  Swal.fire({
+    title: '¿Desea vaciar el carrito?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'No, no quiero'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Carrito vaciado :('
+      )
+    } 
+  })
+}
+
+const saAgregar = () => {
+  Swal.fire({
+    toast: true,
+    position: 'top-end',
+    text: 'Producto agregado correctamente',
+    icon: 'confirm',
+    showConfirmButton: false,
+    timer: 1500,
+    background:  'rgb(255, 141, 20)',
+    color: 'white'
+  })
 }
